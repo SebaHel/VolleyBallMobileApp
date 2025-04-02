@@ -30,11 +30,13 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
   icon: {
+    position: "absolute",
+    left: 310,
+    top: 26,
     fontSize: 25,
     width: 28,
     height: 28,
     color: "black",
     marginLeft: 20,
-    top: 4,
   },
 });
