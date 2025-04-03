@@ -34,7 +34,7 @@ export default function signIn() {
           <Text style={styles.label}>Password</Text>
         </View>
         <TextInput
-          placeholder="Type your email"
+          placeholder="Type your Password"
           style={styles.emailInput}
           placeholderTextColor="#D8DEE970"
           secureTextEntry
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     opacity: 80,
     marginBottom: 25,
     padding: 20,
+    color: "#D8DEE990",
   },
   label: {
     marginBottom: 13,
