@@ -11,11 +11,17 @@ import {
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import { AuthButton } from "@/components/authButton";
 import CheckBox from "@/components/checkBox";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Context as AuthContext } from "@/Context/AuthContext";
 
 export default function signUp() {
   const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatedPassword, setRepeatedPassword] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const { state, signup } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -37,6 +43,8 @@ export default function signUp() {
           <Text style={styles.label}>Email Address</Text>
         </View>
         <TextInput
+          value={email}
+          onChangeText={setEmail}
           placeholder="Type your email"
           style={styles.emailInput}
           placeholderTextColor="#D8DEE970"
@@ -46,6 +54,8 @@ export default function signUp() {
           <Text style={styles.label}>Choose a Password</Text>
         </View>
         <TextInput
+          value={password}
+          onChangeText={setPassword}
           placeholder="Type your email"
           style={styles.emailInput}
           placeholderTextColor="#D8DEE970"
@@ -56,6 +66,8 @@ export default function signUp() {
           <Text style={styles.label}>Repeat Password</Text>
         </View>
         <TextInput
+          value={repeatedPassword}
+          onChangeText={setRepeatedPassword}
           placeholder="Type your email"
           style={styles.emailInput}
           placeholderTextColor="#D8DEE970"
@@ -68,7 +80,12 @@ export default function signUp() {
         />
       </View>
       <View style={styles.buttons}>
-        <AuthButton text={"Sign Up"} />
+        <AuthButton
+          text={"Sign Up"}
+          onPress={() =>
+            signup({ email, password, repeatedPassword, isChecked })
+          }
+        />
         <View style={styles.signUpButtonContainer}>
           <Text style={{ color: "#AEB6C3", fontSize: 18 }}>Have Account?</Text>
           <TouchableOpacity onPress={() => router.replace("/signIn")}>

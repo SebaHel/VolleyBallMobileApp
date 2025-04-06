@@ -10,8 +10,12 @@ import {
 
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import { AuthButton } from "@/components/authButton";
+import { useState } from "react";
 
 export default function signIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const router = useRouter();
   return (
     <View style={styles.container}>
@@ -25,6 +29,8 @@ export default function signIn() {
           <Text style={styles.label}>Email Address</Text>
         </View>
         <TextInput
+          value={email}
+          onChangeText={setEmail}
           placeholder="Type your email"
           style={styles.emailInput}
           placeholderTextColor="#D8DEE970"
@@ -34,6 +40,8 @@ export default function signIn() {
           <Text style={styles.label}>Password</Text>
         </View>
         <TextInput
+          value={password}
+          onChangeText={setPassword}
           placeholder="Type your Password"
           style={styles.emailInput}
           placeholderTextColor="#D8DEE970"
