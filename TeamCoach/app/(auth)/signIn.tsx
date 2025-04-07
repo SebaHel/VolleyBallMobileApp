@@ -10,11 +10,13 @@ import {
 
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import { AuthButton } from "@/components/authButton";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Context as AuthContext } from "@/Context/AuthContext";
 
 export default function signIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { state, signin } = useContext(AuthContext);
 
   const router = useRouter();
   return (
@@ -49,7 +51,10 @@ export default function signIn() {
         />
       </View>
       <View style={styles.buttons}>
-        <AuthButton text={"Login"} />
+        <AuthButton
+          text={"Login"}
+          onPress={() => signin({ email, password })}
+        />
         <View style={styles.signUpButtonContainer}>
           <Text style={{ color: "#AEB6C3", fontSize: 18 }}>
             Don't have Account?
