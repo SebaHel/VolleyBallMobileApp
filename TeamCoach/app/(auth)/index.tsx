@@ -1,9 +1,15 @@
-import { View, StyleSheet, Button, Text, Image } from "react-native";
+import { useContext, useEffect } from "react";
+import { View, StyleSheet, Text, Image } from "react-native";
 import { useRouter } from "expo-router";
 import { AuthButton } from "@/components/authButton";
+import { Context as AuthContext } from "@/Context/AuthContext";
 
 export default function home() {
   const router = useRouter();
+  const { LocalSigninValidation } = useContext(AuthContext);
+  useEffect(() => {
+    LocalSigninValidation();
+  }, []);
   return (
     <View style={styles.container}>
       <Image

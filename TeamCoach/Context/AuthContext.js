@@ -12,8 +12,26 @@ const authReducer = (state, action) => {
       return { ...state, token: action.payload };
     case "signin":
       return { ...state, token: action.payload };
+    case "signout":
+      return { token: null };
     default:
       return state;
+  }
+};
+
+const signOut = (dispatch = async () => {
+  await AsyncStorage.removeItem("token");
+  dispatch({ type: "signout" });
+  router.replace("/(auth)/signIn");
+});
+
+const LocalSigninValidation = (dispatch) => async () => {
+  const token = await AsyncStorage.getItem("token");
+  if (token) {
+    dispatch({ type: "signin", payload: token });
+    router.replace("/(tabs)");
+  } else {
+    router.replace("/(auth)/signIn");
   }
 };
 
@@ -48,6 +66,7 @@ export const { Provider, Context } = createDataContext(
   {
     signup,
     signin,
+    LocalSigninValidation,
   },
   { token: null }
 );
