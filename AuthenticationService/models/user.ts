@@ -1,5 +1,6 @@
 import { pool } from "../DB/database";
 import { Password } from "../auth/passwordManager";
+import { v4 as uuidv4 } from "uuid";
 
 interface User {
   email: string;
@@ -8,22 +9,23 @@ interface User {
 
 export const addUser = async (
   user: User
-): Promise<{ id: number; email: string }> => {
+): Promise<{ id: string; email: string }> => {
+  const userId = uuidv4();
   const { email, password } = user;
   const hashedPassword = await Password.hashPassword(password);
   try {
     const query = `
-          INSERT INTO users (email, password)
-          VALUES ($1, $2)
+          INSERT INTO users (id,email, password)
+          VALUES ($1, $2, $3)
           RETURNING id, email;
         `;
-    const values = [email, hashedPassword];
+    const values = [userId, email, hashedPassword];
 
     const result = await pool.query(query, values);
 
     return await result.rows[0];
   } catch (err) {
-    throw new Error("Bad Request");
+    throw new Error("Query Bad Request");
   }
 };
 
