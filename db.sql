@@ -12,3 +12,14 @@ CREATE TABLE groups (
   name TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE notifications (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  type TEXT NOT NULL,
+  status TEXT DEFAULT 'pending',
+  message TEXT,
+  data JSONB,
+  created_at TIMESTAMP DEFAULT NOW(),
+  read_at TIMESTAMP
+);
