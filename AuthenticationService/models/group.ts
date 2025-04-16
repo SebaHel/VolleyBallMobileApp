@@ -58,3 +58,23 @@ export const isCoachofGroup = async (
     throw new Error("Query Bad Request");
   }
 };
+
+export function findGroupById(
+  group_id: string
+): Promise<{ name: string } | null> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const query = "SELECT name FROM groups WHERE id = $1;";
+
+      const result = await pool.query(query, [group_id]);
+
+      if (result.rows.length > 0) {
+        resolve(result.rows[0]);
+      } else {
+        resolve(null);
+      }
+    } catch (err) {
+      reject(new Error("Bad request error"));
+    }
+  });
+}
