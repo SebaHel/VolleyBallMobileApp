@@ -31,7 +31,7 @@ export const addUser = async (
 
 export function findUserByEmail(
   email: string
-): Promise<{ id: number; email: string; password: string } | null> {
+): Promise<{ id: string; email: string; password: string } | null> {
   return new Promise(async (resolve, reject) => {
     try {
       const query = "SELECT * FROM users WHERE email = $1;";
@@ -48,6 +48,7 @@ export function findUserByEmail(
     }
   });
 }
+
 export function findUserById(
   id: string
 ): Promise<{ id: string; email: string; password: string } | null> {
