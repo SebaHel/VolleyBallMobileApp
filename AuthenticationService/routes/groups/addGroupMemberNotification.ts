@@ -3,7 +3,10 @@ import { badRequestError } from "../../errors/badRequestError";
 import { checkAuth } from "../../models/authCheck";
 import { findGroupById, isCoachofGroup } from "../../models/group";
 import { findUserByEmail, findUserById } from "../../models/user";
-import { addInviteNotification } from "../../models/notification";
+import {
+  addInviteNotification,
+  invitationExist,
+} from "../../models/notification";
 
 const router = express.Router();
 
@@ -23,7 +26,11 @@ router.post(
       const isAuthorized = await isCoachofGroup(response.id, group_id);
       const CoachEmail = await findUserById(response.id);
       const groupName = await findGroupById(group_id);
-      if (!isAuthorized) {
+      const isExisting = await invitationExist(existingUser?.id, {
+        Name: groupName?.name!,
+        InvitedBy: CoachEmail?.email!,
+      });
+      if (!isAuthorized || isExisting) {
         return next(new badRequestError("Bad Request Error"));
       } else {
         await addInviteNotification(
