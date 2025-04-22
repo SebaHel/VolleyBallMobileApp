@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.post(
-  "/api/group/addGroupMemberNotification",
+  "/api/Notifications/addGroupMemberNotification",
   async (req: Request, res: Response, next: NextFunction) => {
     const { token, memberEmail, group_id } = req.body;
     if (!token || !memberEmail || !group_id) {

@@ -44,3 +44,13 @@ export const invitationExist = async (
     }
   });
 };
+
+export const deleteNotification = async (
+  notification_id: string
+): Promise<void> => {
+  const query = `
+  DELETE FROM notifications WHERE id = $1`;
+  const values = [notification_id];
+
+  await pool.query(query, values);
+};
