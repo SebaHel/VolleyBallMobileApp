@@ -78,3 +78,25 @@ export function findGroupById(
     }
   });
 }
+
+export function findAllUserGroups(
+  user_id: string
+): Promise<{ group_id: string; name: string }[] | null> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const query = `SELECT gm.group_id, g.name 
+      FROM group_members gm 
+      JOIN groups g on gm.group_id = g.id 
+      WHERE gm.user_id = $1;`;
+      const results = await pool.query(query, [user_id]);
+      if (results.rows.length > 0) {
+        resolve(results.rows);
+      } else {
+        resolve(null);
+      }
+    } catch (err) {
+      console.log(err);
+      reject(new Error("Bad Request Error"));
+    }
+  });
+}

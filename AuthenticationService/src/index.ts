@@ -7,6 +7,7 @@ import { requireAuth } from "../middlewares/requireAuth";
 import { errorHandler } from "../middlewares/error-handler";
 import { addGroupMemberNotification } from "../routes/Notification/addGroupMemberNotification";
 import { deleteNotificationRouter } from "../routes/Notification/deleteNotification";
+import { getUserGroups } from "../routes/groups/getUsersGroups";
 export const app = express();
 
 app.use(json());
@@ -16,6 +17,7 @@ app.use(signInRouter);
 app.use(newGroupRouter);
 app.use(addGroupMemberNotification);
 app.use(deleteNotificationRouter);
+app.use(getUserGroups);
 app.use(errorHandler);
 
 app.get("/", requireAuth, (req, res, next) => {

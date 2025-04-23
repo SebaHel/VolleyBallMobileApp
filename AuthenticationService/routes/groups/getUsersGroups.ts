@@ -1,29 +1,28 @@
 import express, { Request, Response, NextFunction } from "express";
 import { badRequestError } from "../../errors/badRequestError";
 import { checkAuth } from "../../models/authCheck";
-import { addGroup, addGroupMember } from "../../models/group";
+import { findAllUserGroups } from "../../models/group";
 
 const router = express.Router();
 
 router.post(
-  "/api/group/addGroup",
+  "/api/groups",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { token, groupName } = req.body;
-    if (!token || !groupName) {
+    const { token } = req.body;
+    console.log(token);
+    if (!token) {
       return next(new badRequestError("Bad Request Error"));
     }
 
     const response = await checkAuth(token);
-    const groupId = await addGroup(groupName);
-    if (!response || !groupId) {
-      console.log(response, groupId);
+    if (!response) {
       next(new badRequestError("Bad Request Error"));
     } else {
       const userId = response.id;
-      await addGroupMember(groupId.id, userId, "coach");
-      res.status(201).send({ groupId });
+      const userGroups = await findAllUserGroups(userId);
+      res.status(201).send({ userGroups });
     }
   }
 );
 
-export { router as newGroupRouter };
+export { router as getUserGroups };
