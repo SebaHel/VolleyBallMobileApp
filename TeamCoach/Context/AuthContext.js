@@ -19,11 +19,11 @@ const authReducer = (state, action) => {
   }
 };
 
-const signOut = (dispatch = async () => {
+const signOut = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
   dispatch({ type: "signout" });
   router.replace("/(auth)/signIn");
-});
+};
 
 const LocalSigninValidation = (dispatch) => async () => {
   const token = await AsyncStorage.getItem("token");
@@ -32,12 +32,12 @@ const LocalSigninValidation = (dispatch) => async () => {
     router.replace("/(tabs)");
   } else {
     router.replace("/(auth)/signIn");
+    dispatch({ type: "signin" });
   }
 };
 
 const signup = (dispatch) => {
   return async ({ email, password, repeatedPassword, ischecked }) => {
-    console.log("udało się");
     const response = await axios.post(`${CREATE_USER_URL}`, {
       email,
       password,

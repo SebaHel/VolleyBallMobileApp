@@ -1,15 +1,30 @@
 import { View, Text, StyleSheet } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
+
+type IconType = "feather" | "antDesign";
 
 type Props = {
-  feathericonName: keyof typeof Feather.glyphMap;
+  iconName: string;
+  type: IconType;
 };
 
 type FeatherDesignIconNames = "user" | "user-plus" | "settings" | "plus";
-export default function LinksNavigations({ feathericonName }: Props) {
+export default function LinksNavigations({ iconName, type }: Props) {
   return (
     <View style={styles.Icon}>
-      <Feather size={35} name={feathericonName} color={"#D8DEE9"} />
+      {type === "feather" ? (
+        <Feather
+          size={35}
+          name={iconName as keyof typeof Feather.glyphMap}
+          color={"#D8DEE9"}
+        />
+      ) : (
+        <AntDesign
+          size={35}
+          name={iconName as keyof typeof AntDesign.glyphMap}
+          color={"#D8DEE9"}
+        />
+      )}
     </View>
   );
 }

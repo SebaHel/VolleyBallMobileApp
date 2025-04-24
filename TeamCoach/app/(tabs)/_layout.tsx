@@ -50,7 +50,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="groups"
           options={{
-            title: "groups",
+            title: "Groups",
             tabBarIcon: ({ color }) => (
               <Text style={styles.linkStyle}>
                 <MaterialIcons size={45} name="groups" color={color} />
