@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -9,10 +9,16 @@ import {
 
 import { Context as GroupContext } from "@/Context/groupContext";
 import LinksNavigations from "@/components/LinksNavigations";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 export default function groups() {
   const { state, fetchGroups } = useContext(GroupContext);
   const router = useRouter();
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchGroups();
+    }, [])
+  );
   useEffect(() => {
     fetchGroups();
   }, []);
@@ -33,7 +39,7 @@ export default function groups() {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={state.groups}
+        data={state?.groups ?? []}
         keyExtractor={(item) => item.group_id}
         renderItem={({ item }) => (
           <View style={styles.groupItem}>

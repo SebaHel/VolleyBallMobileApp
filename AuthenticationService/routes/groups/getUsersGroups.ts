@@ -9,7 +9,6 @@ router.post(
   "/api/groups",
   async (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.body;
-    console.log(token);
     if (!token) {
       return next(new badRequestError("Bad Request Error"));
     }
