@@ -19,9 +19,6 @@ export default function groups() {
       fetchGroups();
     }, [])
   );
-  useEffect(() => {
-    fetchGroups();
-  }, []);
   return (
     <View
       style={{

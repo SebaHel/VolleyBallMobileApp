@@ -1,8 +1,26 @@
-import { View, StyleSheet } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
 import LinksNavigations from "@/components/LinksNavigations";
+import { useCallback, useContext } from "react";
+import { Context as NotificationContext } from "@/Context/notificationContext";
+import { useFocusEffect } from "expo-router";
+
+import EvilIcons from "@expo/vector-icons/EvilIcons";
 
 export default function notification() {
+  const { state, fetchNotification } = useContext(NotificationContext);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchNotification();
+    }, [])
+  );
   return (
     <View
       style={{
@@ -14,6 +32,18 @@ export default function notification() {
         <LinksNavigations type="feather" iconName={"user"} />
         <LinksNavigations type="feather" iconName={"settings"} />
       </View>
+      <FlatList
+        data={state.notifications ?? []}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.groupItem}>
+            <Text style={styles.groupName}>{item.message}</Text>
+            <TouchableOpacity>
+              <EvilIcons name="trash" size={32} color="#FF8C42" />
+            </TouchableOpacity>
+          </View>
+        )}
+      />
     </View>
   );
 }
@@ -25,5 +55,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 45,
     margin: 25,
+  },
+  groupItem: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "110",
+    backgroundColor: "#2E333D",
+    padding: 15,
+    borderRadius: 10,
+    marginHorizontal: 25,
+    marginBottom: 10,
+  },
+  groupName: {
+    color: "white",
+    fontSize: 16,
   },
 });

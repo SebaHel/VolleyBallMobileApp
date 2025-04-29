@@ -54,3 +54,27 @@ export const deleteNotification = async (
 
   await pool.query(query, values);
 };
+
+export const findAllUserNotifications = async (
+  user_id: string
+): Promise<Notification[] | null> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const query = `
+    SELECT * FROM notifications
+    WHERE user_id = $1;
+
+  `;
+      const values = [user_id];
+
+      const result = await pool.query(query, values);
+      if (result.rows.length > 0) {
+        resolve(result.rows);
+      } else {
+        resolve(null);
+      }
+    } catch (err) {
+      reject(new Error("Bad request error"));
+    }
+  });
+};
