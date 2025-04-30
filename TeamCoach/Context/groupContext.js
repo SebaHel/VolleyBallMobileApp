@@ -28,7 +28,6 @@ const fetchGroups = (dispatch) => {
       const response = await axios.post(`${GET_GROUPS_URL}`, {
         token,
       });
-
       dispatch({ type: "fetchGroups", payload: response.data.userGroups });
     } catch (err) {
       console.log("Error fetching groups:", err);
@@ -37,12 +36,13 @@ const fetchGroups = (dispatch) => {
 };
 
 const createGroup = (dispach) => {
-  return async ({ groupName }) => {
+  return async ({ groupName, selectedColor }) => {
     try {
       const token = await AsyncStorage.getItem("token");
       const response = await axios.post(`${CREATE_GROUP_URL}`, {
         token,
         groupName,
+        selectedColor,
       });
       dispach({ type: "CreateGroup" });
       router.back();

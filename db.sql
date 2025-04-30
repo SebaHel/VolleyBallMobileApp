@@ -10,6 +10,7 @@ CREATE TABLE group_members (
 CREATE TABLE groups (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name TEXT NOT NULL,
+  color VARCHAR(7),
   created_at TIMESTAMP DEFAULT NOW()
 );
 

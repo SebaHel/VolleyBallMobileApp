@@ -14,7 +14,8 @@ import { useFocusEffect } from "expo-router";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 
 export default function notification() {
-  const { state, fetchNotification } = useContext(NotificationContext);
+  const { state, fetchNotification, deleteNotification } =
+    useContext(NotificationContext);
 
   useFocusEffect(
     useCallback(() => {
@@ -38,7 +39,9 @@ export default function notification() {
         renderItem={({ item }) => (
           <View style={styles.groupItem}>
             <Text style={styles.groupName}>{item.message}</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => deleteNotification({ id: item.id })}
+            >
               <EvilIcons name="trash" size={32} color="#FF8C42" />
             </TouchableOpacity>
           </View>
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
   groupItem: {
     display: "flex",
     flexDirection: "row",
-    gap: "110",
+    justifyContent: "space-between",
     backgroundColor: "#2E333D",
     padding: 15,
     borderRadius: 10,

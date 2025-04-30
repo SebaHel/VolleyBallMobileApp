@@ -45,12 +45,10 @@ export const invitationExist = async (
   });
 };
 
-export const deleteNotification = async (
-  notification_id: string
-): Promise<void> => {
+export const deleteNotification = async (id: string): Promise<void> => {
   const query = `
   DELETE FROM notifications WHERE id = $1`;
-  const values = [notification_id];
+  const values = [id];
 
   await pool.query(query, values);
 };

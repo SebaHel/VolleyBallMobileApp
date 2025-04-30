@@ -7,12 +7,12 @@ const router = express.Router();
 router.delete(
   "/api/Notifications/deleteNotification",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { notification_id } = req.body;
+    const { id } = req.body;
 
-    if (!notification_id) {
+    if (!id) {
       next(new badRequestError("bad request error"));
     } else {
-      await deleteNotification(notification_id);
+      await deleteNotification(id);
       res.status(200).send("Successfully deleted");
     }
   }

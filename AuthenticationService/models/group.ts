@@ -1,15 +1,16 @@
 import { pool } from "../DB/database";
 
 export const addGroup = async (
-  name: string
+  name: string,
+  selectedColor: string
 ): Promise<{ id: string } | void> => {
   try {
     const query = `
-        INSERT INTO groups ( name)
-        VALUES ($1)
-        RETURNING id;
+        INSERT INTO groups (name, color)
+        VALUES ($1, $2)
+        RETURNING id,color;
      `;
-    const values = [name];
+    const values = [name, selectedColor];
 
     const result = await pool.query(query, values);
 
@@ -81,10 +82,10 @@ export function findGroupById(
 
 export function findAllUserGroups(
   user_id: string
-): Promise<{ group_id: string; name: string }[] | null> {
+): Promise<{ group_id: string; name: string; color: string }[] | null> {
   return new Promise(async (resolve, reject) => {
     try {
-      const query = `SELECT gm.group_id, g.name 
+      const query = `SELECT gm.group_id, g.name, g.color 
       FROM group_members gm 
       JOIN groups g on gm.group_id = g.id 
       WHERE gm.user_id = $1;`;

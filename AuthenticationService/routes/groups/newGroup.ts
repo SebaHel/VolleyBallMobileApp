@@ -8,13 +8,13 @@ const router = express.Router();
 router.post(
   "/api/group/addGroup",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { token, groupName } = req.body;
-    if (!token || !groupName) {
+    const { token, groupName, selectedColor } = req.body;
+    if (!token || !groupName || !selectedColor) {
       return next(new badRequestError("Bad Request Error"));
     }
 
     const response = await checkAuth(token);
-    const groupId = await addGroup(groupName);
+    const groupId = await addGroup(groupName, selectedColor);
     if (!response || !groupId) {
       console.log(response, groupId);
       next(new badRequestError("Bad Request Error"));

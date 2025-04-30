@@ -10,6 +10,7 @@ import {
 import { Context as GroupContext } from "@/Context/groupContext";
 import LinksNavigations from "@/components/LinksNavigations";
 import { useFocusEffect, useRouter } from "expo-router";
+import { Feather } from "@expo/vector-icons";
 export default function groups() {
   const { state, fetchGroups } = useContext(GroupContext);
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function groups() {
     >
       <View style={styles.IconContainer}>
         <LinksNavigations type="feather" iconName={"user"} />
-        <Text>Groups</Text>
+        <Text style={styles.Label}>Groups</Text>
         <TouchableOpacity
           onPress={() => router.push("/(tabs)/groups/addGroup")}
         >
@@ -39,8 +40,19 @@ export default function groups() {
         data={state?.groups ?? []}
         keyExtractor={(item) => item.group_id}
         renderItem={({ item }) => (
-          <View style={styles.groupItem}>
+          <View
+            style={[
+              styles.groupItem,
+              { backgroundColor: item.color || "#2E333D" },
+            ]}
+          >
             <Text style={styles.groupName}>{item.name}</Text>
+            <Feather
+              name={"chevron-right"}
+              size={24}
+              color={"#AEB6C3"}
+              style={{ fontWeight: 600 }}
+            />
           </View>
         )}
       />
@@ -55,16 +67,30 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 45,
     margin: 25,
+    marginBottom: 15,
+  },
+  Label: {
+    color: "#D8DEE9",
+    fontSize: 32,
+    left: -55,
+    top: 6,
   },
   groupItem: {
-    backgroundColor: "#2E333D",
+    flexDirection: "row",
+    width: "90%",
+    height: 108,
     padding: 15,
     borderRadius: 10,
-    marginHorizontal: 25,
-    marginBottom: 10,
+    marginBottom: 15,
+    marginHorizontal: "5%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    top: "25%",
   },
   groupName: {
-    color: "white",
-    fontSize: 16,
+    color: "#FF8C42",
+    fontSize: 22,
+    left: 24,
+    fontWeight: 600,
   },
 });
