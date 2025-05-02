@@ -11,8 +11,8 @@ export default function calendar() {
       }}
     >
       <View style={styles.IconContainer}>
-        <LinksNavigations type="feather" iconName={"user"} />
-        <LinksNavigations type="feather" iconName={"settings"} />
+        <LinksNavigations type="feather" iconName={"user"} size={35} />
+        <LinksNavigations type="feather" iconName={"settings"} size={35} />
       </View>
     </View>
   );

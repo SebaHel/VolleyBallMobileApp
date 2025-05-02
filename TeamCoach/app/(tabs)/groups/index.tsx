@@ -28,32 +28,45 @@ export default function groups() {
       }}
     >
       <View style={styles.IconContainer}>
-        <LinksNavigations type="feather" iconName={"user"} />
+        <LinksNavigations type="feather" iconName={"user"} size={35} />
         <Text style={styles.Label}>Groups</Text>
         <TouchableOpacity
           onPress={() => router.push("/(tabs)/groups/addGroup")}
         >
-          <LinksNavigations type="antDesign" iconName={"addusergroup"} />
+          <LinksNavigations
+            type="antDesign"
+            iconName={"addusergroup"}
+            size={35}
+          />
         </TouchableOpacity>
       </View>
       <FlatList
         data={state?.groups ?? []}
         keyExtractor={(item) => item.group_id}
         renderItem={({ item }) => (
-          <View
-            style={[
-              styles.groupItem,
-              { backgroundColor: item.color || "#2E333D" },
-            ]}
+          <TouchableOpacity
+            onPress={() =>
+              router.push({
+                pathname: `/(tabs)/groups/[id]`,
+                params: { id: item.group_id },
+              })
+            }
           >
-            <Text style={styles.groupName}>{item.name}</Text>
-            <Feather
-              name={"chevron-right"}
-              size={24}
-              color={"#AEB6C3"}
-              style={{ fontWeight: 600 }}
-            />
-          </View>
+            <View
+              style={[
+                styles.groupItem,
+                { backgroundColor: item.color || "#2E333D" },
+              ]}
+            >
+              <Text style={styles.groupName}>{item.name}</Text>
+              <Feather
+                name={"chevron-right"}
+                size={24}
+                color={"#AEB6C3"}
+                style={{ fontWeight: 600 }}
+              />
+            </View>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -78,7 +91,7 @@ const styles = StyleSheet.create({
   groupItem: {
     flexDirection: "row",
     width: "90%",
-    height: 108,
+    height: 148,
     padding: 15,
     borderRadius: 10,
     marginBottom: 15,

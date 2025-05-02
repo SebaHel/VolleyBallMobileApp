@@ -28,5 +28,6 @@ const styles = StyleSheet.create({
     textShadowColor: "rgba(0, 0, 0, 0.8",
     textShadowOffset: { width: 4, height: 4 },
     textShadowRadius: 5,
+    left: -15,
   },
 });

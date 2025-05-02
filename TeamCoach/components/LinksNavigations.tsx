@@ -1,32 +1,48 @@
 import { View, Text, StyleSheet } from "react-native";
-import { AntDesign, Feather } from "@expo/vector-icons";
+import { AntDesign, Feather, MaterialIcons } from "@expo/vector-icons";
 
-type IconType = "feather" | "antDesign";
+type IconType = "feather" | "antDesign" | "materialIcons";
 
 type Props = {
   iconName: string;
   type: IconType;
+  size: number;
 };
 
-type FeatherDesignIconNames = "user" | "user-plus" | "settings" | "plus";
-export default function LinksNavigations({ iconName, type }: Props) {
-  return (
-    <View style={styles.Icon}>
-      {type === "feather" ? (
-        <Feather
-          size={35}
-          name={iconName as keyof typeof Feather.glyphMap}
-          color={"#D8DEE9"}
-        />
-      ) : (
-        <AntDesign
-          size={35}
-          name={iconName as keyof typeof AntDesign.glyphMap}
-          color={"#D8DEE9"}
-        />
-      )}
-    </View>
-  );
+export default function LinksNavigations({ iconName, type, size }: Props) {
+  const color = "#D8DEE9";
+
+  const renderIcon = () => {
+    switch (type) {
+      case "feather":
+        return (
+          <Feather
+            size={size}
+            name={iconName as keyof typeof Feather.glyphMap}
+            color={color}
+          />
+        );
+      case "antDesign":
+        return (
+          <AntDesign
+            size={size}
+            name={iconName as keyof typeof AntDesign.glyphMap}
+            color={color}
+          />
+        );
+      case "materialIcons":
+        return (
+          <MaterialIcons
+            size={size}
+            name={iconName as keyof typeof MaterialIcons.glyphMap}
+            color={color}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+  return <View style={styles.Icon}>{renderIcon()}</View>;
 }
 
 const styles = StyleSheet.create({
