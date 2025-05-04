@@ -4,7 +4,6 @@ import { GET_GROUPS_URL, CREATE_GROUP_URL } from "@/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 
-const router = useRouter();
 const groupReducer = (state, action) => {
   switch (action.type) {
     case "fetchGroups":
@@ -18,7 +17,7 @@ const groupReducer = (state, action) => {
 };
 
 const fetchGroups = (dispatch) => {
-  return async () => {
+  return async ({ router }) => {
     try {
       const token = await AsyncStorage.getItem("token");
       if (!token) {

@@ -1,10 +1,7 @@
 import createDataContext from "./createDataContext";
-import { useRouter } from "expo-router";
 import axios from "axios";
 import { CREATE_USER_URL, SIGN_IN_USER_URL } from "@/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const router = useRouter();
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -19,25 +16,29 @@ const authReducer = (state, action) => {
   }
 };
 
-const signOut = (dispatch) => async () => {
-  await AsyncStorage.removeItem("token");
-  dispatch({ type: "signout" });
-  router.replace("/(auth)/signIn");
-};
-
-const LocalSigninValidation = (dispatch) => async () => {
-  const token = await AsyncStorage.getItem("token");
-  if (token) {
-    dispatch({ type: "signin", payload: token });
-    router.replace("/(tabs)");
-  } else {
+const signOut =
+  (dispatch) =>
+  async ({ router }) => {
+    await AsyncStorage.removeItem("token");
+    dispatch({ type: "signout" });
     router.replace("/(auth)/signIn");
-    dispatch({ type: "signin" });
-  }
-};
+  };
+
+const LocalSigninValidation =
+  (dispatch) =>
+  async ({ router }) => {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      dispatch({ type: "signin", payload: token });
+      router.replace("/(tabs)");
+    } else {
+      router.replace("/(auth)/signIn");
+      dispatch({ type: "signin", payload: null });
+    }
+  };
 
 const signup = (dispatch) => {
-  return async ({ email, password, repeatedPassword, ischecked }) => {
+  return async ({ email, password, repeatedPassword, ischecked, router }) => {
     const response = await axios.post(`${CREATE_USER_URL}`, {
       email,
       password,
@@ -45,12 +46,12 @@ const signup = (dispatch) => {
     });
     await AsyncStorage.setItem("token", response.data.token);
     dispatch({ type: "signup", payload: response.data.token });
-    router.replace("/(tabs)");
+    router.replace("/profile");
   };
 };
 
 const signin = (dispatch) => {
-  return async ({ email, password }) => {
+  return async ({ email, password, router }) => {
     const response = await axios.post(`${SIGN_IN_USER_URL}`, {
       email,
       password,
@@ -66,6 +67,7 @@ export const { Provider, Context } = createDataContext(
   {
     signup,
     signin,
+    signOut,
     LocalSigninValidation,
   },
   { token: null }
