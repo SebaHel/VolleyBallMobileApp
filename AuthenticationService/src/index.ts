@@ -10,6 +10,7 @@ import { deleteNotificationRouter } from "../routes/Notification/deleteNotificat
 import { getUserGroups } from "../routes/groups/getUsersGroups";
 import { getUserNotifications } from "../routes/Notification/getNotifications";
 import { getGroupMembers } from "../routes/groups/getGroupMembers";
+import { createProfile } from "../routes/Profile/createUserProfile";
 export const app = express();
 
 app.use(json());
@@ -22,6 +23,7 @@ app.use(deleteNotificationRouter);
 app.use(getUserGroups);
 app.use(getUserNotifications);
 app.use(getGroupMembers);
+app.use(createProfile);
 app.use(errorHandler);
 
 app.get("/", requireAuth, (req, res, next) => {
