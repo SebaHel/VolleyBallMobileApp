@@ -82,9 +82,9 @@ export default function signUp() {
       <View style={styles.buttons}>
         <AuthButton
           text={"Sign Up"}
-          onPress={() =>
-            signup({ email, password, repeatedPassword, isChecked })
-          }
+          onPress={() => {
+            signup({ email, password, repeatedPassword, isChecked, router });
+          }}
         />
         <View style={styles.signUpButtonContainer}>
           <Text style={{ color: "#AEB6C3", fontSize: 18 }}>Have Account?</Text>

@@ -1,11 +1,10 @@
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useContext } from "react";
 import { Context as GroupContext } from "@/Context/groupContext";
 import CustomBackNav from "@/components/CustomBackNav";
 import LinksNavigations from "@/components/LinksNavigations";
 
-// Definiowanie interfejsów
 interface Group {
   group_id: string;
   name: string;
@@ -19,8 +18,8 @@ interface GroupContextState {
 export default function GroupDetails() {
   const { id } = useLocalSearchParams();
   const { state } = useContext(GroupContext);
+  const router = useRouter();
 
-  // Użycie odpowiedniego typu dla 'state.groups'
   const group = state.groups.find((g: Group) => g.group_id === id);
 
   if (!group) return <Text>Loading...</Text>;
@@ -40,7 +39,14 @@ export default function GroupDetails() {
       </View>
       <View style={styles.labels}>
         <Text style={styles.labelText}>Closest Event</Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            router.push({
+              pathname: "/(tabs)/groups/[id]/members",
+              params: { id: id },
+            })
+          }
+        >
           <Text style={styles.labelbutton}>Members</Text>
         </TouchableOpacity>
       </View>

@@ -8,8 +8,8 @@ export default function home() {
   const router = useRouter();
   const { LocalSigninValidation } = useContext(AuthContext);
   useEffect(() => {
-    LocalSigninValidation();
-  }, []);
+    LocalSigninValidation({ router });
+  }, [router, LocalSigninValidation]);
   return (
     <View style={styles.container}>
       <Image

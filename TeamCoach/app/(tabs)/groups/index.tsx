@@ -17,9 +17,10 @@ export default function groups() {
 
   useFocusEffect(
     useCallback(() => {
-      fetchGroups();
+      fetchGroups({ router });
     }, [])
   );
+
   return (
     <View
       style={{

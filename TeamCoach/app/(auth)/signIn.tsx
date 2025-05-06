@@ -53,7 +53,7 @@ export default function signIn() {
       <View style={styles.buttons}>
         <AuthButton
           text={"Login"}
-          onPress={() => signin({ email, password })}
+          onPress={() => signin({ email, password, router })}
         />
         <View style={styles.signUpButtonContainer}>
           <Text style={{ color: "#AEB6C3", fontSize: 18 }}>
