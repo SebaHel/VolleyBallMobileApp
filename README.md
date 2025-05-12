@@ -57,4 +57,5 @@ api/users/signIn
 
 ## Technologies
 ### Backend - Typescript
-### FrontEnd- React Native with expo
+### FrontEnd - React Native with expo
+### Database - PostgreSQL
