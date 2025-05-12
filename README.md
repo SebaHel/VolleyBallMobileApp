@@ -4,13 +4,6 @@
 
 ```bash 
 git clone https://github.com/SebaHel/VolleyBallMobileApp.git
-## 2. Install Dependencies
-
-### Frontend:
-Go to the `frontend` directory and install the dependencies.
-
-cd client
-npm install
 ```
 ### Backend:
 Go to the `Backend` directory and install the dependencies.
