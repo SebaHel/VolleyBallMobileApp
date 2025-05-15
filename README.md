@@ -57,10 +57,10 @@ api/users/signIn
 
 ## Features
 
-Loging System: Secure authentication via email and password. Users can log in to access personalized content.
-Dashboard: After logging in, users can access their personalized dashboard, displaying their enrolled classes, progress, and upcoming tasks.
-Create Groups: Users (Coaches) can create new classes and manage them.
-Join Classes: Coaches can invate users to group.
-Notification System: Users can see all notifications releated to his profile.
-Events: Coach can create events add designed group and check the verify the presence of that group as well can add coments or statistics to user regarding that event.
-Progress Tracking: Users can track their progress and see their stats per training .
+**Loging System:** Secure authentication via email and password. Users can log in to access personalized content.  
+**Dashboard:** After logging in, users can access their personalized dashboard, displaying their enrolled classes, progress, and upcoming tasks.  
+**Create Groups:** Users (Coaches) can create new classes and manage them.  
+**Join Classes:** Coaches can invate users to group.  
+**Notification System:** Users can see all notifications releated to his profile.  
+**Events**: Coach can create events add designed group and check the verify the presence of that group as well can add coments or statistics to user regarding that event.  
+**Progress Tracking:** Users can track their progress and see their stats per training .
